@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Teste Login</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f7;color:#1a1a2e}
+
+/* Tela de login */
+#pmo-gate{position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#1e2461 0%,#2d3a8c 100%);display:flex;align-items:center;justify-content:center}
+#pmo-gate.hidden{display:none}
+.gate-box{background:#fff;border-radius:12px;padding:40px 48px;width:340px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.4);text-align:center}
+.gate-box h2{font-size:18px;font-weight:700;color:#1e2461;margin-bottom:4px}
+.gate-box p{font-size:12px;color:#64748b;margin-bottom:24px}
+.gate-box input{width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;margin-bottom:8px;transition:.15s}
+.gate-box input:focus{border-color:#2461E0}
+.gate-box button{width:100%;padding:10px;background:#2461E0;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s;margin-top:4px}
+.gate-box button:hover{background:#1d4ed8}
+.gate-err{color:#dc2626;font-size:12px;margin-bottom:8px;min-height:16px}
+
+/* Conteúdo de teste */
+.page{padding:40px;max-width:800px;margin:0 auto}
+.page h1{font-size:24px;color:#1e2461;margin-bottom:8px}
+.page p{color:#64748b;margin-bottom:24px}
+.card{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px}
+.card h2{font-size:15px;font-weight:700;color:#1e2461;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#f1f5f9;padding:8px 12px;text-align:left;color:#64748b;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #f1f5f9}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.verde{background:#dcfce7;color:#16a34a}
+.amarelo{background:#fef9c3;color:#ca8a04}
+.vermelho{background:#fee2e2;color:#dc2626}
+</style>
+</head>
+<body>
+
+<!-- Tela de senha -->
+<div id="pmo-gate">
+  <div class="gate-box">
+    <h2>Plano de Trabalho</h2>
+    <p>Reforma Tributária — TIM &amp; Accenture</p>
+    <input type="password" id="gate-input" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')gateCheck()"/>
+    <div class="gate-err" id="gate-err"></div>
+    <button onclick="gateCheck()">Entrar</button>
+  </div>
+</div>
+
+<!-- Conteúdo de teste -->
+<div class="page">
+  <h1>Plano de Trabalho — Teste</h1>
+  <p>Esta é uma página de exemplo para validar o login.</p>
+
+  <div class="card">
+    <h2>Status das Frentes</h2>
+    <table>
+      <thead>
+        <tr><th>Frente</th><th>Responsável</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Fiscal</td><td>Frente A</td><td><span class="badge verde">No prazo</span></td></tr>
+        <tr><td>Contábil</td><td>Frente B</td><td><span class="badge amarelo">Atenção</span></td></tr>
+        <tr><td>TI / Sistemas</td><td>Frente C</td><td><span class="badge vermelho">Atrasado</span></td></tr>
+        <tr><td>Jurídico</td><td>Frente D</td><td><span class="badge verde">No prazo</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Próximas entregas</h2>
+    <table>
+      <thead>
+        <tr><th>Entrega</th><th>Data</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mapeamento de processos</td><td>15/09/2026</td><td><span class="badge verde">Concluído</span></td></tr>
+        <tr><td>Diagnóstico fiscal</td><td>30/09/2026</td><td><span class="badge amarelo">Em andamento</span></td></tr>
+        <tr><td>Plano de implementação</td><td>15/10/2026</td><td><span class="badge vermelho">Não iniciado</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(sessionStorage.getItem('pmo_ok')==='1'){document.getElementById('pmo-gate').classList.add('hidden');return;}
+  document.getElementById('gate-input').focus();
+})();
+function gateCheck(){
+  var v=document.getElementById('gate-input').value;
+  if(v==='Projeto_PMO@RT2027'){
+    sessionStorage.setItem('pmo_ok','1');
+    document.getElementById('pmo-gate').classList.add('hidden');
+  } else {
+    document.getElementById('gate-err').textContent='Senha incorreta.';
+    document.getElementById('gate-input').value='';
+    document.getElementById('gate-input').focus();
+  }
+}
+</script>
+</body>
+</html>
